@@ -156,13 +156,13 @@ class DepartmentViewSchema(BaseModel):
         title="Updated At",
         description="The date and time the department was updated"
     )
-    branch_id: int = Field(
-        ...,
+    branch_id: int | None = Field(
+        default=None,
         title="Branch ID",
         description="The ID of the associated branch"
     )
-    branch_name: str = Field(
-        ...,
+    branch_name: str | None = Field(
+        default=None,
         title="Branch Name",
         description="The name of the branch",
     )
@@ -171,13 +171,13 @@ class DepartmentViewSchema(BaseModel):
         title="Branch Address",
         description="The address of the branch"
     )
-    branch_created_at: datetime = Field(
-        ...,
+    branch_created_at: datetime | None = Field(
+        default=None,
         title="Branch Created At",
         description="The date and time the branch was created"
     )
-    branch_updated_at: datetime = Field(
-        ...,
+    branch_updated_at: datetime | None = Field(
+        default=None,
         title="Branch Updated At",
         description="The date and time the branch was updated"
     )

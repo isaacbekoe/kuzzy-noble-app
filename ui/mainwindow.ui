@@ -105,7 +105,7 @@
              <item row="0" column="0">
               <widget class="QLabel" name="branchNameLabel">
                <property name="text">
-                <string>Branch Name</string>
+                <string>Branch Name*</string>
                </property>
               </widget>
              </item>
@@ -247,6 +247,21 @@
        <layout class="QGridLayout" name="gridLayout_3">
         <item row="1" column="0">
          <widget class="QTableWidget" name="departmentsTableWidget">
+          <property name="alternatingRowColors">
+           <bool>true</bool>
+          </property>
+          <property name="selectionMode">
+           <enum>QAbstractItemView::SingleSelection</enum>
+          </property>
+          <property name="selectionBehavior">
+           <enum>QAbstractItemView::SelectRows</enum>
+          </property>
+          <property name="verticalScrollMode">
+           <enum>QAbstractItemView::ScrollPerPixel</enum>
+          </property>
+          <property name="horizontalScrollMode">
+           <enum>QAbstractItemView::ScrollPerPixel</enum>
+          </property>
           <property name="columnCount">
            <number>5</number>
           </property>
@@ -306,7 +321,7 @@
              <item row="0" column="0">
               <widget class="QLabel" name="departmentNameLabel">
                <property name="text">
-                <string>Department Name</string>
+                <string>Department Name*</string>
                </property>
               </widget>
              </item>
@@ -326,7 +341,7 @@
              <item row="2" column="0">
               <widget class="QLabel" name="departmentBranchLabel">
                <property name="text">
-                <string>Department Branch</string>
+                <string>Department Branch*</string>
                </property>
               </widget>
              </item>
@@ -527,7 +542,7 @@
              <item row="0" column="0">
               <widget class="QLabel" name="roleNameLabel">
                <property name="text">
-                <string>Role Name</string>
+                <string>Role Name*</string>
                </property>
               </widget>
              </item>
@@ -687,7 +702,7 @@
              <item row="0" column="0">
               <widget class="QLabel" name="employeeIdLabel">
                <property name="text">
-                <string>Employee ID</string>
+                <string>Employee ID*</string>
                </property>
               </widget>
              </item>
@@ -697,7 +712,7 @@
              <item row="1" column="0">
               <widget class="QLabel" name="employeeTitleLabel">
                <property name="text">
-                <string>Employee Title</string>
+                <string>Employee Title*</string>
                </property>
               </widget>
              </item>
@@ -738,7 +753,7 @@
              <item row="2" column="0">
               <widget class="QLabel" name="employeeNameLabel">
                <property name="text">
-                <string>Employee Name</string>
+                <string>Employee Name*</string>
                </property>
               </widget>
              </item>
@@ -748,7 +763,7 @@
              <item row="3" column="0">
               <widget class="QLabel" name="employeeGenderLabel">
                <property name="text">
-                <string>Employee Gender</string>
+                <string>Employee Gender*</string>
                </property>
               </widget>
              </item>
@@ -779,7 +794,7 @@
              <item row="4" column="0">
               <widget class="QLabel" name="employeeDateOfBirthLabel">
                <property name="text">
-                <string>Employee Date of Birth</string>
+                <string>Employee Date of Birth*</string>
                </property>
               </widget>
              </item>
@@ -803,7 +818,7 @@
              <item row="5" column="0">
               <widget class="QLabel" name="employeeNationalityLabel">
                <property name="text">
-                <string>Employee Nationality</string>
+                <string>Employee Nationality*</string>
                </property>
               </widget>
              </item>
@@ -813,7 +828,7 @@
              <item row="6" column="0">
               <widget class="QLabel" name="employeePhoneNumberLabel">
                <property name="text">
-                <string>Employee Phone Number</string>
+                <string>Employee Phone Number*</string>
                </property>
               </widget>
              </item>
@@ -823,7 +838,7 @@
              <item row="7" column="0">
               <widget class="QLabel" name="employeeEmailAddressLabel">
                <property name="text">
-                <string>Employee Email Address</string>
+                <string>Employee Email Address*</string>
                </property>
               </widget>
              </item>
@@ -853,7 +868,7 @@
              <item row="10" column="0">
               <widget class="QLabel" name="employeeRoleLabel">
                <property name="text">
-                <string>Employee Role</string>
+                <string>Employee Role*</string>
                </property>
               </widget>
              </item>

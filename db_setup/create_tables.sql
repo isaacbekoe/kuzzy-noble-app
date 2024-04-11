@@ -5,7 +5,7 @@ USE kuzzy_noble_db;
 -- Creating the Branch table
 CREATE TABLE branch (
     id INT AUTO_INCREMENT PRIMARY KEY,
-    name VARCHAR(255) NOT NULL,
+    name VARCHAR(255) NOT NULL UNIQUE,
     address VARCHAR(255),
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
@@ -16,16 +16,17 @@ CREATE TABLE department (
     id INT AUTO_INCREMENT PRIMARY KEY,
     name VARCHAR(255) NOT NULL,
     description TEXT,
-    branch_id INT,
+    branch_id INT NOT NULL,
     FOREIGN KEY (branch_id) REFERENCES branch(id),
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    CONSTRAINT unique_branch_department_name UNIQUE(name, branch_id)
 );
 
 -- Creating the Role table
 CREATE TABLE role (
     id INT AUTO_INCREMENT PRIMARY KEY,
-    name VARCHAR(255) NOT NULL,
+    name VARCHAR(255) NOT NULL UNIQUE,
     description VARCHAR(255),
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
@@ -34,17 +35,17 @@ CREATE TABLE role (
 -- Creating the Employee table
 CREATE TABLE employee (
     id INT AUTO_INCREMENT PRIMARY KEY,
-    employee_id VARCHAR(255),
-    title VARCHAR(255),
+    employee_id VARCHAR(255) NOT NULL UNIQUE,
+    title VARCHAR(255) NOT NULL,
     name VARCHAR(255) NOT NULL,
-    gender ENUM('Male', 'Female', 'Other'),
-    date_of_birth DATE,
-    nationality VARCHAR(255),
-    phone_number VARCHAR(15),
-    email_address VARCHAR(255),
+    gender ENUM('Male', 'Female', 'Other') NOT NULL,
+    date_of_birth DATE NOT NULL,
+    nationality VARCHAR(255) NOT NULL,
+    phone_number VARCHAR(15) NOT NULL UNIQUE,
+    email_address VARCHAR(255) NOT NULL UNIQUE,
     department_id INT,
     branch_id INT,
-    role_id INT,
+    role_id INT NOT NULL,
     FOREIGN KEY (department_id) REFERENCES department(id),
     FOREIGN KEY (branch_id) REFERENCES branch(id),
     FOREIGN KEY (role_id) REFERENCES role(id),
@@ -55,7 +56,7 @@ CREATE TABLE employee (
 -- Creating the Institution table
 CREATE TABLE institution (
     id INT AUTO_INCREMENT PRIMARY KEY,
-    name VARCHAR(255) NOT NULL,
+    name VARCHAR(255) NOT NULL UNIQUE,
     address VARCHAR(255),
     phone_number VARCHAR(15),
     email_address VARCHAR(255),
@@ -66,7 +67,7 @@ CREATE TABLE institution (
 -- Creating the Doctor table
 CREATE TABLE doctor (
     id INT AUTO_INCREMENT PRIMARY KEY,
-    title VARCHAR(255),
+    title VARCHAR(255) NOT NULL,
     name VARCHAR(255) NOT NULL,
     phone_number VARCHAR(15),
     email_address VARCHAR(255),
@@ -79,14 +80,14 @@ CREATE TABLE doctor (
 -- Creating the Patient's table
 CREATE TABLE patient (
     id INT AUTO_INCREMENT PRIMARY KEY,
-    patient_code VARCHAR(255),
+    patient_code VARCHAR(255) UNIQUE,
     name VARCHAR(255) NOT NULL,
-    gender ENUM('Male', 'Female', 'Other'),
+    gender ENUM('Male', 'Female', 'Other') NOT NULL,
     phone_number VARCHAR(15),
     email_address VARCHAR(255),
     date_of_birth DATE,
-    enrolled_by INT,
-    enrollment_branch_id INT,
+    enrolled_by INT NOT NULL,
+    enrollment_branch_id INT NOT NULL,
     FOREIGN KEY (enrolled_by) REFERENCES employee(id),
     FOREIGN KEY (enrollment_branch_id) REFERENCES branch(id),
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
@@ -96,7 +97,7 @@ CREATE TABLE patient (
 -- Creating the Test Category table
 CREATE TABLE test_category (
     id INT AUTO_INCREMENT PRIMARY KEY,
-    name VARCHAR(255) NOT NULL,
+    name VARCHAR(255) NOT NULL UNIQUE,
     description TEXT,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
@@ -105,11 +106,11 @@ CREATE TABLE test_category (
 -- Creating the Test table
 CREATE TABLE test (
     id INT AUTO_INCREMENT PRIMARY KEY,
-    name VARCHAR(255) NOT NULL,
-    abbreviation VARCHAR(255),
-    test_category_id INT,
-    price DECIMAL(10, 2),
-    turnaround_time_in_hours INT,
+    name VARCHAR(255) NOT NULL UNIQUE,
+    abbreviation VARCHAR(255) UNIQUE,
+    test_category_id INT NOT NULL,
+    price DECIMAL(10, 2) NOT NULL,
+    turnaround_time_in_hours INT NOT NULL,
     unit VARCHAR(255),
     consultants VARCHAR(255),
     FOREIGN KEY (test_category_id) REFERENCES test_category(id),
@@ -120,7 +121,7 @@ CREATE TABLE test (
 -- Creating the Sample Type table
 CREATE TABLE sample_type (
     id INT AUTO_INCREMENT PRIMARY KEY,
-    name VARCHAR(255) NOT NULL,
+    name VARCHAR(255) NOT NULL UNIQUE,
     description TEXT,
     specimens VARCHAR(255),
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
@@ -130,9 +131,9 @@ CREATE TABLE sample_type (
 -- Creating the Sample table
 CREATE TABLE sample (
     id INT AUTO_INCREMENT PRIMARY KEY,
-    sample_code VARCHAR(255),
-    sample_type_id INT,
-    patient_id INT,
+    sample_code VARCHAR(255) NOT NULL UNIQUE,
+    sample_type_id INT NOT NULL,
+    patient_id INT NOT NULL,
     collected_by INT,
     collected_at TIMESTAMP,
     initial_quantity DECIMAL(10, 2),
@@ -148,19 +149,19 @@ CREATE TABLE sample (
 -- Creating the Medical Report table
 CREATE TABLE medical_report (
     id INT AUTO_INCREMENT PRIMARY KEY,
-    report_code VARCHAR(255),
-    patient_id INT,
+    report_code VARCHAR(255) NOT NULL UNIQUE,
+    patient_id INT NOT NULL,
     sample_id INT,
-    test_id INT,
+    test_id INT NOT NULL,
     specimen VARCHAR(255),
-    price DECIMAL(10, 2),
-    created_by INT,
+    price DECIMAL(10, 2) NOT NULL,
+    created_by INT NOT NULL,
     result DECIMAL(10, 2),
     result_unit VARCHAR(255),
     comment TEXT,
-    is_done BOOLEAN,
-    is_quality_checked BOOLEAN,
-    is_signed BOOLEAN,
+    is_done BOOLEAN DEFAULT false,
+    is_quality_checked BOOLEAN DEFAULT false,
+    is_signed BOOLEAN DEFAULT false,
     signed_by INT,
     FOREIGN KEY (patient_id) REFERENCES patient(id),
     FOREIGN KEY (sample_id) REFERENCES sample(id),
@@ -174,7 +175,7 @@ CREATE TABLE medical_report (
 -- Creating the Payment Method table
 CREATE TABLE payment_method (
     id INT AUTO_INCREMENT PRIMARY KEY,
-    name VARCHAR(255) NOT NULL,
+    name VARCHAR(255) NOT NULL UNIQUE,
     description TEXT,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
@@ -183,13 +184,13 @@ CREATE TABLE payment_method (
 -- Create Payment table
 CREATE TABLE payment (
     id INT AUTO_INCREMENT PRIMARY KEY,
-    payment_code VARCHAR(255),
-    amount_paid DECIMAL(10, 2),
+    payment_code VARCHAR(255) NOT NULL UNIQUE,
+    amount_paid DECIMAL(10, 2) NOT NULL,
     discount DECIMAL(10, 2),
-    is_receivable BOOLEAN,
-    payment_method_id INT,
-    cash_handler_id INT,
-    medical_report_id INT,
+    is_receivable BOOLEAN DEFAULT false,
+    payment_method_id INT NOT NULL,
+    cash_handler_id INT NOT NULL,
+    medical_report_id INT NOT NULL,
     FOREIGN KEY (payment_method_id) REFERENCES payment_method(id),
     FOREIGN KEY (cash_handler_id) REFERENCES employee(id),
     FOREIGN KEY (medical_report_id) REFERENCES medical_report(id),
@@ -212,9 +213,10 @@ CREATE VIEW department_view AS (
     department.updated_at,
     branch.id AS branch_id,
     branch.name AS branch_name,
+    branch.address AS branch_address,
     branch.created_at AS branch_created_at,
-    branch.updated_at AS branch_updated
-    FROM department LEFT JOIN branch ON department.id=branch.id
+    branch.updated_at AS branch_updated_at
+    FROM department LEFT JOIN branch ON department.branch_id=branch.id
 );
 
 -- Create Role view
@@ -245,12 +247,12 @@ CREATE VIEW employee_view AS (
     employee_plus_department_branch.branch_name,
     employee_plus_department_branch.branch_address,
     employee_plus_department_branch.branch_created_at,
-    employee_plus_department_branch.branch_updated,
+    employee_plus_department_branch.branch_updated_at,
     role.id AS role_id,
     role.name AS role_name,
     role.description AS role_description,
     role.created_at AS role_created_at,
-    role.updated_at AS role_updated
+    role.updated_at AS role_updated_at
     FROM
     (
         SELECT
@@ -275,7 +277,7 @@ CREATE VIEW employee_view AS (
         branch.name AS branch_name,
         branch.address AS branch_address,
         branch.created_at AS branch_created_at,
-        branch.updated_at AS branch_updated
+        branch.updated_at AS branch_updated_at
         FROM
         (
             SELECT 
@@ -297,7 +299,7 @@ CREATE VIEW employee_view AS (
             department.description AS department_description,
             department.created_at AS department_created_at,
             department.updated_at AS department_updated_at
-            FROM employee LEFT JOIN department ON employee.id=department.id
+            FROM employee LEFT JOIN department ON employee.department_id=department.id
         ) AS employee_plus_department
         LEFT JOIN branch ON employee_plus_department.branch_id=branch.id
     ) AS employee_plus_department_branch

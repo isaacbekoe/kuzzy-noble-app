@@ -20,7 +20,7 @@ def add_branch(self) -> None:
             name=name,
             address=address
         )
-        asyncio.run(add_one_branch(data=data))
+        self.event_loop.run_until_complete(add_one_branch(data=data))
         load_all_branches(self)
         QtWidgets.QMessageBox.information(self, "Operation Status", "Branch added successfully")
     except Exception as e:
@@ -36,7 +36,7 @@ def reset_branch_form(self) -> None:
 def delete_branch(self):
     try:
         selected_row_idx = self.branchesTableWidget.currentRow()
-        asyncio.run(delete_one_branch_by_id(branch_id=self.branches_table_data[selected_row_idx].id))
+        self.event_loop.run_until_complete(delete_one_branch_by_id(branch_id=self.branches_table_data[selected_row_idx].id))
         load_all_branches(self)
         QtWidgets.QMessageBox.information(self, "Operation Status", "Branch deleted successfully")
     except Exception as e:
@@ -45,7 +45,9 @@ def delete_branch(self):
     
     
 def load_all_branches(self):
-    self.branches_table_data, _ = asyncio.run(fetch_all_branches(0, 100))
+    self.branches_table_data, _ = self.event_loop.run_until_complete(fetch_all_branches(0, 100))
+    self.branch_selection_options = self.branches_table_data.copy()
+    item_names: list[str] = [None]
     self.branchesTableWidget.setRowCount(0)
     row_position = self.branchesTableWidget.rowCount()
     for record in self.branches_table_data:
@@ -55,12 +57,17 @@ def load_all_branches(self):
         self.branchesTableWidget.setItem(row_position, 2, QtWidgets.QTableWidgetItem(str(record.created_at)))
         self.branchesTableWidget.setItem(row_position, 3, QtWidgets.QTableWidgetItem(str(record.updated_at)))
         row_position += 1
-        
+        item_names.append(record.name)
+    self.departmentBranchComboBox.clear()
+    self.employeeBranchComboBox.clear()
+    self.departmentBranchComboBox.addItems(item_names)
+    self.employeeBranchComboBox.addItems(item_names)
+    
         
 def filter_branches(self):
     query = self.searchBranchLineEdit.text()
     data: SearchBranchSchema = SearchBranchSchema(name=query)
-    self.branches_table_data, _ = asyncio.run(search_branches(data=data, skip=0, limit=100))
+    self.branches_table_data, _ = self.event_loop.run_until_complete(search_branches(data=data, skip=0, limit=100))
     self.branchesTableWidget.setRowCount(0)
     row_position = self.branchesTableWidget.rowCount()
     for record in self.branches_table_data:
