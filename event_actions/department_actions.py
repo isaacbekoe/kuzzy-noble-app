@@ -18,7 +18,7 @@ def add_department(self) -> None:
         selected_branch_idx: int = self.departmentBranchComboBox.currentIndex() - 1
         branch_id = (self.branch_selection_options[selected_branch_idx].id if selected_branch_idx >= 0 else None)
         data: CreateDepartmentSchema = CreateDepartmentSchema(
-            name=name,
+            name=name if name else None,
             description=description if description else None,
             branch_id=branch_id
         )

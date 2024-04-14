@@ -16,7 +16,7 @@ def add_role(self) -> None:
         name = self.roleNameLineEdit.text()
         description = self.roleDescriptionLineEdit.text()
         data: CreateRoleSchema = CreateRoleSchema(
-            name=name,
+            name=name if name else None,
             description=description if description else None
         )
         self.event_loop.run_until_complete(add_one_role(data=data))

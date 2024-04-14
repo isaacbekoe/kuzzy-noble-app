@@ -30,17 +30,17 @@ def add_employee(self) -> None:
         selected_role_idx: int = self.employeeRoleComboBox.currentIndex() - 1
         role_id = (self.role_selection_options[selected_role_idx].id if selected_role_idx >= 0 else None)
         data: CreateEmployeeSchema = CreateEmployeeSchema(
-            employee_id=employee_id,
-            title=title,
-            name=name,
-            gender=gender,
-            date_of_birth=date_of_birth,
-            nationality=nationality,
-            email_address=email_address,
-            phone_number=phone_number,
+            employee_id=employee_id if employee_id else None,
+            title=title if title else None,
+            name=name if name else None,
+            gender=gender if gender else None,
+            date_of_birth=date_of_birth if date_of_birth else None,
+            nationality=nationality if nationality else None,
+            email_address=email_address if email_address else None,
+            phone_number=phone_number if phone_number else None,
             department_id=department_id if department_id else None,
             branch_id=branch_id if branch_id else None,
-            role_id=role_id
+            role_id=role_id if role_id else None
         )
         self.event_loop.run_until_complete(add_one_employee(data=data))
         load_all_employees(self)

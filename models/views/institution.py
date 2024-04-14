@@ -1,5 +1,4 @@
 import sqlalchemy as sa
-from sqlalchemy.dialects.postgresql import UUID
 
 
 metadata = sa.MetaData()

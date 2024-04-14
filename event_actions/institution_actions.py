@@ -18,7 +18,7 @@ def add_institution(self) -> None:
         phone_number = self.institutionPhoneNumberLineEdit.text()
         email_address = self.institutionEmailAddressLineEdit.text()
         data: CreateInstitutionSchema = CreateInstitutionSchema(
-            name=name,
+            name=name if name else None,
             address=address if address else None,
             phone_number=phone_number if phone_number else None,
             email_address=email_address if email_address else None,
@@ -65,6 +65,8 @@ def load_all_institutions(self):
         self.institutionsTableWidget.setItem(row_position, 5, QtWidgets.QTableWidgetItem(str(record.updated_at)))
         row_position += 1
         item_names.append(record.name)
+    self.doctorInstitutionComboBox.clear()
+    self.doctorInstitutionComboBox.addItems(item_names)
     
         
 def filter_institutions(self):

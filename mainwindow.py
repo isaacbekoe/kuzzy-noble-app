@@ -1,12 +1,13 @@
 import sys
 import asyncio
-from PyQt6 import QtCore, QtGui, QtWidgets
+from PyQt6 import QtWidgets
 from PyQt6 import uic
 from models.schemas.branch import BranchViewSchema
 from models.schemas.role import RoleViewSchema
 from models.schemas.department import DepartmentViewSchema
 from models.schemas.employee import EmployeeViewSchema
 from models.schemas.institution import InstitutionViewSchema
+from models.schemas.doctor import DoctorViewSchema
 from event_actions.branch_actions import (
     add_branch,
     reset_branch_form,
@@ -41,6 +42,13 @@ from event_actions.institution_actions import (
     load_all_institutions,
     delete_institution,
     filter_institutions,
+)
+from event_actions.doctor_actions import (
+    add_doctor,
+    reset_doctor_form,
+    load_all_doctors,
+    delete_doctor,
+    filter_doctors,
 )
 
 
@@ -113,6 +121,18 @@ class MainWindow(QtWidgets.QMainWindow):
         self.deleteInstitutionButton.pressed.connect(lambda: delete_institution(self))
         self.searchInstitutionButton.pressed.connect(lambda: filter_institutions(self))
         load_all_institutions(self)
+        
+        # NOTE: FOR DOCTORS
+        # initialize table data
+        self.doctors_table_data: list[DoctorViewSchema] = []
+        self.doctor_selection_options: list[DoctorViewSchema] = []
+        # add button actions
+        self.addDoctorButton.pressed.connect(lambda: add_doctor(self))
+        self.resetDoctorFormButton.pressed.connect(lambda: reset_doctor_form(self))
+        self.loadDoctorsButton.pressed.connect(lambda: load_all_doctors(self))
+        self.deleteDoctorButton.pressed.connect(lambda: delete_doctor(self))
+        self.searchDoctorButton.pressed.connect(lambda: filter_doctors(self))
+        load_all_doctors(self)
     
           
 if __name__ == "__main__":

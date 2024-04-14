@@ -310,3 +310,24 @@ CREATE VIEW employee_view AS (
 CREATE VIEW institution_view AS (
     SELECT * FROM institution
 );
+
+-- Create Doctor view
+CREATE VIEW doctor_view AS (
+    SELECT 
+    doctor.id,
+    doctor.title,
+    doctor.name,
+    doctor.phone_number,
+    doctor.email_address,
+    doctor.created_at,
+    doctor.updated_at,
+    institution.id AS institution_id,
+    institution.name AS institution_name,
+    institution.address AS institution_address,
+    institution.phone_number AS institution_phone_number,
+    institution.email_address AS institution_email_address,
+    institution.created_at AS institution_created_at,
+    institution.updated_at AS institution_updated_at
+    FROM doctor
+    LEFT JOIN institution ON doctor.institution_id=institution.id
+);

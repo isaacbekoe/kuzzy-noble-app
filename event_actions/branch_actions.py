@@ -16,7 +16,7 @@ def add_branch(self) -> None:
         name = self.branchNameLineEdit.text()
         address = self.branchAddressLineEdit.text()
         data: CreateBranchSchema = CreateBranchSchema(
-            name=name,
+            name=name if name else None,
             address=address if address else None
         )
         self.event_loop.run_until_complete(add_one_branch(data=data))
