@@ -30,13 +30,27 @@ This is a simple application for manipulating the Kuzzy Noble App project presen
    python3 -m venv venv
    ```
 
-7. Install the project dependencies by running the command:
+7. Active the virtual environment with the command:
+
+   On Linux or in bash shell
+
+   ```bash
+   . venv/bin/activate
+   ```
+
+   On Windows or in powershell
+
+   ```bash
+   ./venv/Scripts/activate.ps1
+   ```
+
+8. Install the project dependencies by running the command:
 
    ```bash
    pip install -r requirements.txt
    ```
 
-8. Run the application with the command:
+9. Run the application with the command:
 
    ```bash
    python3 mainwindow.py

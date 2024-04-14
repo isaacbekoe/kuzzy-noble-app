@@ -1,7 +1,6 @@
 from models.database import db_conn_handle, db_connection_handler
 from models.tables.employee import EmployeesTable
-from models.schemas.employee import UpdateEmployeeSchema, EmployeeSchema, EmployeeViewSchema
-from models.functions import employee as employee_functions
+from models.schemas.employee import UpdateEmployeeSchema, EmployeeSchema
 from sqlalchemy.sql.expression import (
     Update as UpdateQuery
 )
@@ -24,12 +23,6 @@ async def update_one_employee_by_id(
     Returns:
         EmployeeSchema: The updated employee record if found else nothing
     """
-    # get the current record
-    current_record: EmployeeViewSchema | None = await employee_functions.fetch_one_employee_by_id(
-        employee_record_id=employee_record_id
-    )
-    if not current_record:
-        return None
     # get the current date and time
     now = datetime.now(tz=timezone.utc)
     # create the update query

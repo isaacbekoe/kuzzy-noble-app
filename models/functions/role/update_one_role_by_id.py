@@ -1,13 +1,11 @@
 from models.database import db_conn_handle, db_connection_handler
 from models.tables.role import RolesTable
-from models.schemas.role import UpdateRoleSchema, RoleSchema, RoleViewSchema
-from models.functions import role as role_functions
+from models.schemas.role import UpdateRoleSchema, RoleSchema
 from sqlalchemy.sql.expression import (
     Update as UpdateQuery
 )
 from datetime import datetime, timezone
 from databases.core import Record
-from sqlalchemy import and_
 
 
 @db_connection_handler
@@ -25,12 +23,6 @@ async def update_one_role_by_id(
     Returns:
         RoleSchema: The updated role record if found else nothing
     """
-    # get the current record
-    current_record: RoleViewSchema | None = await role_functions.fetch_one_role_by_id(
-        role_id=role_id
-    )
-    if not current_record:
-        return None
     # get the current date and time
     now = datetime.now(tz=timezone.utc)
     # create the update query

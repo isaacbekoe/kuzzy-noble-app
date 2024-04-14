@@ -6,6 +6,7 @@ from models.schemas.branch import BranchViewSchema
 from models.schemas.role import RoleViewSchema
 from models.schemas.department import DepartmentViewSchema
 from models.schemas.employee import EmployeeViewSchema
+from models.schemas.institution import InstitutionViewSchema
 from event_actions.branch_actions import (
     add_branch,
     reset_branch_form,
@@ -33,6 +34,13 @@ from event_actions.employee_actions import (
     load_all_employees,
     delete_employee,
     filter_employees,
+)
+from event_actions.institution_actions import (
+    add_institution,
+    reset_institution_form,
+    load_all_institutions,
+    delete_institution,
+    filter_institutions,
 )
 
 
@@ -93,6 +101,18 @@ class MainWindow(QtWidgets.QMainWindow):
         self.deleteEmployeeButton.pressed.connect(lambda: delete_employee(self))
         self.searchEmployeeButton.pressed.connect(lambda: filter_employees(self))
         load_all_employees(self)
+        
+        # NOTE: FOR INSTITUTIONS
+        # initialize table data
+        self.institutions_table_data: list[InstitutionViewSchema] = []
+        self.institution_selection_options: list[InstitutionViewSchema] = []
+        # add button actions
+        self.addInstitutionButton.pressed.connect(lambda: add_institution(self))
+        self.resetInstitutionFormButton.pressed.connect(lambda: reset_institution_form(self))
+        self.loadInstitutionsButton.pressed.connect(lambda: load_all_institutions(self))
+        self.deleteInstitutionButton.pressed.connect(lambda: delete_institution(self))
+        self.searchInstitutionButton.pressed.connect(lambda: filter_institutions(self))
+        load_all_institutions(self)
     
           
 if __name__ == "__main__":

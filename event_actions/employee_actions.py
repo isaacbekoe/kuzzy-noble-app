@@ -38,8 +38,8 @@ def add_employee(self) -> None:
             nationality=nationality,
             email_address=email_address,
             phone_number=phone_number,
-            department_id=department_id,
-            branch_id=branch_id,
+            department_id=department_id if department_id else None,
+            branch_id=branch_id if branch_id else None,
             role_id=role_id
         )
         self.event_loop.run_until_complete(add_one_employee(data=data))

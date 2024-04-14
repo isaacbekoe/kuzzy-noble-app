@@ -1,4 +1,3 @@
-import asyncio
 from PyQt6 import QtWidgets
 from models.schemas.department import (
     CreateDepartmentSchema, 
@@ -20,7 +19,7 @@ def add_department(self) -> None:
         branch_id = (self.branch_selection_options[selected_branch_idx].id if selected_branch_idx >= 0 else None)
         data: CreateDepartmentSchema = CreateDepartmentSchema(
             name=name,
-            description=description,
+            description=description if description else None,
             branch_id=branch_id
         )
         self.event_loop.run_until_complete(add_one_department(data=data))

@@ -1,7 +1,6 @@
 from models.database import db_conn_handle, db_connection_handler
 from models.tables.branch import BranchesTable
-from models.schemas.branch import UpdateBranchSchema, BranchSchema, BranchViewSchema
-from models.functions import branch as branch_functions
+from models.schemas.branch import UpdateBranchSchema, BranchSchema
 from sqlalchemy.sql.expression import (
     Update as UpdateQuery
 )
@@ -24,12 +23,6 @@ async def update_one_branch_by_id(
     Returns:
         BranchSchema: The updated branch record if found else nothing
     """
-    # get the current record
-    current_record: BranchViewSchema | None = await branch_functions.fetch_one_branch_by_id(
-        branch_id=branch_id
-    )
-    if not current_record:
-        return None
     # get the current date and time
     now = datetime.now(tz=timezone.utc)
     # create the update query

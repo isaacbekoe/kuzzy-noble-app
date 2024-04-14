@@ -1,4 +1,3 @@
-import asyncio
 from PyQt6 import QtWidgets
 from models.schemas.branch import (
     CreateBranchSchema, 
@@ -18,7 +17,7 @@ def add_branch(self) -> None:
         address = self.branchAddressLineEdit.text()
         data: CreateBranchSchema = CreateBranchSchema(
             name=name,
-            address=address
+            address=address if address else None
         )
         self.event_loop.run_until_complete(add_one_branch(data=data))
         load_all_branches(self)

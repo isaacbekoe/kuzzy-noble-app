@@ -1,0 +1,6 @@
+from .add_one_institution import add_one_institution
+from .update_one_institution_by_id import update_one_institution_by_id
+from .fetch_one_institution_by_id import fetch_one_institution_by_id
+from .fetch_all_institutions import fetch_all_institutions
+from .search_institutions import search_institutions
+from .delete_one_institution_by_id import delete_one_institution_by_id

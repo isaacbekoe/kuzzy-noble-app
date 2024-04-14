@@ -13,27 +13,25 @@ DepartmentsTable = sa.Table(
         primary_key=True,
         autoincrement=True,
         index=True,
-        nullable=False),
+        nullable=False,
+    ),
     sa.Column("name", sa.String(255), nullable=False),
     sa.Column("description", sa.String(2000), nullable=True),
-    sa.Column(
-        "branch_id",
-        sa.Integer,
-        sa.ForeignKey("branch.id"),
-        nullable=False),
+    sa.Column("branch_id", sa.Integer, sa.ForeignKey("branch.id"), nullable=False),
     sa.Column(
         "created_at",
         sa.DateTime(timezone=True),
         server_default=func.now(),
-        nullable=False),
+        nullable=False,
+    ),
     sa.Column(
         "updated_at",
         sa.DateTime(timezone=True),
         server_default=func.now(),
-        server_onupdate=sa.text('NOW()'),
-        nullable=False),
+        server_onupdate=sa.text("NOW()"),
+        nullable=False,
+    ),
     sa.UniqueConstraint(
-        "name",
-        "branch_id",
-        name="department_name_branch_id_unique_constraint")
+        "name", "branch_id", name="department_name_branch_id_unique_constraint"
+    ),
 )

@@ -1,7 +1,6 @@
 from models.database import db_conn_handle, db_connection_handler
 from models.tables.department import DepartmentsTable
-from models.schemas.department import UpdateDepartmentSchema, DepartmentSchema, DepartmentViewSchema
-from models.functions import department as department_functions
+from models.schemas.department import UpdateDepartmentSchema, DepartmentSchema
 from sqlalchemy.sql.expression import (
     Update as UpdateQuery
 )
@@ -25,12 +24,6 @@ async def update_one_department_by_id(
     Returns:
         DepartmentSchema: The updated department record if found else nothing
     """
-    # get the current record
-    current_record: DepartmentViewSchema | None = await department_functions.fetch_one_department_by_id(
-        department_id=department_id
-    )
-    if not current_record:
-        return None
     # get the current date and time
     now = datetime.now(tz=timezone.utc)
     # create the update query

@@ -1,4 +1,3 @@
-import asyncio
 from PyQt6 import QtWidgets
 from models.schemas.role import (
     CreateRoleSchema, 
@@ -18,7 +17,7 @@ def add_role(self) -> None:
         description = self.roleDescriptionLineEdit.text()
         data: CreateRoleSchema = CreateRoleSchema(
             name=name,
-            description=description
+            description=description if description else None
         )
         self.event_loop.run_until_complete(add_one_role(data=data))
         load_all_roles(self)

@@ -1,11 +1,12 @@
 import sqlalchemy as sa
+from sqlalchemy.dialects.postgresql import UUID
 from sqlalchemy.sql import func
 
 
 metadata = sa.MetaData()
 
-RolesTable = sa.Table(
-    "role",
+InstitutionsTable = sa.Table(
+    "institution",
     metadata,
     sa.Column(
         "id",
@@ -15,8 +16,10 @@ RolesTable = sa.Table(
         index=True,
         nullable=False,
     ),
-    sa.Column("name", sa.String(255), nullable=False),
-    sa.Column("description", sa.String(2000), nullable=True),
+    sa.Column("name", sa.String(100), nullable=False),
+    sa.Column("address", sa.String(100), nullable=True),
+    sa.Column("phone_number", sa.String(20), nullable=True),
+    sa.Column("email_address", sa.String(100), nullable=True),
     sa.Column(
         "created_at",
         sa.DateTime(timezone=True),
@@ -30,5 +33,5 @@ RolesTable = sa.Table(
         server_onupdate=sa.text("NOW()"),
         nullable=False,
     ),
-    sa.UniqueConstraint("name", name="role_name_unique_constraint"),
+    sa.UniqueConstraint("name", name="institutions_name_unique_constraint"),
 )

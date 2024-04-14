@@ -305,3 +305,8 @@ CREATE VIEW employee_view AS (
     ) AS employee_plus_department_branch
     LEFT JOIN role ON employee_plus_department_branch.role_id=role.id
 );
+
+-- Create Institution view
+CREATE VIEW institution_view AS (
+    SELECT * FROM institution
+);
