@@ -2,25 +2,33 @@
 INSERT INTO branch (name, address) VALUES
 ('Main Branch', '123 Main Street'),
 ('Downtown Branch', '456 Downtown Avenue'),
+('Main Street Branch', '456 Downtown Avenue'),
+('Southern Branch', '456 Downtown Avenue'),
 ('Uptown Branch', '789 Uptown Road');
 
 -- Inserting data into the department table
 INSERT INTO department (name, description, branch_id) VALUES
 ('Cardiology', 'Specializing in heart-related issues', 1),
 ('Radiology', 'Specializing in medical imaging', 2),
-('Pathology', 'Specializing in laboratory analysis', 3);
+('Pathology', 'Specializing in laboratory analysis', 3),
+('Pharmacy', 'Specializing in pharmaceuticals', 4),
+('Orthopedia', 'Specializing in orthopedics', 5);
 
 -- Inserting data into the role table
 INSERT INTO role (name, description) VALUES
 ('Doctor', 'Medical practitioner'),
 ('Nurse', 'Healthcare professional'),
-('Technician', 'Skilled worker');
+('Technician', 'Skilled worker'),
+('Pharmacist', 'Professional pharmacist'),
+('Surgeon', 'Professional surgeon');
 
 -- Inserting data into the employee table
 INSERT INTO employee (employee_id, title, name, gender, date_of_birth, nationality, phone_number, email_address, department_id, branch_id, role_id) VALUES
 ('EMP001', 'Dr.', 'John Smith', 'Male', '1980-01-15', 'American', '+123456789', 'johnsmith@example.com', 1, 1, 1),
 ('EMP002', 'Nurse', 'Emily Johnson', 'Female', '1985-05-20', 'Canadian', '+987654321', 'emilyjohnson@example.com', 2, 2, 2),
-('EMP003', 'Technician', 'Michael Williams', 'Male', '1990-08-10', 'British', '+1122334455', 'michaelwilliams@example.com', 3, 3, 3);
+('EMP003', 'Technician', 'Michael Williams', 'Male', '1990-08-10', 'British', '+1122334455', 'michaelwilliams@example.com', 3, 3, 3),
+('EMP004', 'Mrs.', 'Anita Boateng', 'Female', '2001-12-23', 'Ghanaian', '+233122334455', 'anitaboateng@example.com', 4, 4, 4),
+('EMP005', 'Rev.', 'Cristus Pontus', 'Male', '1950-01-02', 'Spanish', '+45122334455', 'cristus@example.com', 5, 5, 5);
 
 -- Inserting data into the institution table
 INSERT INTO institution (name, address, phone_number, email_address) VALUES
