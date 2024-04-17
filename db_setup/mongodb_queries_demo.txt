@@ -1,0 +1,17 @@
+-- select the department called `Sales`
+{ name: "Sales" }
+
+
+-- select medical reports that have been completed but not quality checked
+{ $and: [ { is_done: true, is_quality_checked: false } ] }
+
+
+-- Aggregation: find the total revenue obtained from running tests
+[
+  {
+    "$group": {
+      "_id": null,
+      "totalPrice": { "$sum": "$price" }
+    }
+  }
+]
