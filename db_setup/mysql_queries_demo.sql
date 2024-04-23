@@ -155,3 +155,9 @@ FROM
     LEFT JOIN branch ON employee_plus_department.branch_id=branch.id
 ) AS employee_plus_department_branch
 LEFT JOIN role ON employee_plus_department_branch.role_id=role.id;
+
+
+-- select employees who were born before 1970 and in the 2000's using the UNION of two select queries
+(SELECT name, date_of_birth FROM employee WHERE date_of_birth < '1970-01-01')
+UNION
+(SELECT name, date_of_birth FROM employee WHERE date_of_birth > '2000-01-01');

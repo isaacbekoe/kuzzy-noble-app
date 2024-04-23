@@ -1,6 +1,6 @@
-CREATE DATABASE kuzzy_noble_db;
+CREATE DATABASE kuzzy_noble_db_final;
 
-USE kuzzy_noble_db;
+USE kuzzy_noble_db_final;
 
 -- Creating the Branch table
 CREATE TABLE branch (
